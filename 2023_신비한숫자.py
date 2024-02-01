@@ -15,7 +15,7 @@ for num in range(3,int((10**n)**0.5)+1):
     if isPrime(num):
         primes.append(num)
         pprime.append(num*num)
-# print(primes)
+print(len(primes))
 queue = deque([2,3,5,7])
 under = 10**(n-1)
 while queue:
