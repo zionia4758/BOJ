@@ -1,0 +1,43 @@
+import sys
+from collections import deque
+def solution():
+    n,m = map(int,sys.stdin.readline().split())
+    mat = []
+    for __ in range(n):
+        mat.append(list(sys.stdin.readline()))
+    direction = [[1,0],[-1,0],[0,-1],[0,1]]
+
+    queue = deque([[0,0,0,1]])
+    visited = [[[False]*m for __ in range(n) ] for l in range(2)]
+    visited[0][0][0]=True
+    visited[1][0][0] = True
+    while queue:
+        # print(queue)
+        y,x,already_break,cnt = queue.popleft()
+        
+        if y==n-1 and x == m-1:
+            # print(y,x,cnt)
+            print(cnt)
+            return
+            
+        for dy,dx in direction:
+            ny = dy+y
+            nx = dx+x
+            if nx<0 or nx == m or ny<0 or ny == n:
+                continue
+            if visited[already_break][ny][nx]:
+                continue
+            if mat[ny][nx] == '1':
+                if already_break:
+                    continue
+                else:
+                    queue.append([ny,nx,1,cnt+1])
+                    visited[1][ny][nx] = True
+                    visited[0][ny][nx] = True
+            else:
+                queue.append([ny,nx,already_break,cnt+1])
+                visited[already_break][ny][nx] = True
+    print(-1)
+    return
+
+solution()
